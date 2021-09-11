@@ -1,0 +1,40 @@
+{
+    "name": "oska",
+    "version": "1.0.0",
+    "author": "Alan Morel",
+    "license": "MIT",
+    "description": "A Discord bot written using Node in TypeScript",
+    "scripts": {
+        "build": "tsc --project ./tsconfig.json && tsc-alias -p ./tsconfig.json",
+        "start": "nodemon --config ./nodemon.config.json ./src/Bot.ts --watch server",
+        "static": "yarn run build && node ./dist/Bot.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/AlanMorel/oska.git"
+    },
+    "bugs": {
+        "url": "https://github.com/AlanMorel/oska/issues"
+    },
+    "homepage": "https://github.com/AlanMorel/oska#readme",
+    "dependencies": {
+        "discord.js": "^13.1.0",
+        "dotenv": "^10.0.0"
+    },
+    "devDependencies": {
+        "@types/node": "^16.9.1",
+        "@typescript-eslint/eslint-plugin": "^4.31.0",
+        "@typescript-eslint/parser": "^4.31.0",
+        "babel-eslint": "^10.1.0",
+        "eslint": "^7.32.0",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-prettier": "^4.0.0",
+        "eslint-plugin-security": "^1.4.0",
+        "nodemon": "^2.0.12",
+        "prettier": "^2.4.0",
+        "ts-node": "^10.2.1",
+        "tsc-alias": "^1.3.9",
+        "tsconfig-paths": "^3.11.0",
+        "typescript": "^4.4.3"
+    }
+}

@@ -18,6 +18,6 @@ export default (client: Client): void => {
             return;
         }
 
-        await command.run(client, message, args);
+        command.run(client, message, args);
     });
 };

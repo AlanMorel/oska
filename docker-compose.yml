@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+    oska:
+        container_name: oska
+        image: oska
+        restart: always
+        build:
+            context: .
+            dockerfile: Dockerfile
+            target: base
+        environment:
+            DOCKER: "true"
+        volumes:
+            - "./logs:/app/logs"
+        networks:
+            - docker
+
+networks:
+    docker:
+        external: true

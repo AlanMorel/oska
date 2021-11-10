@@ -3,24 +3,24 @@
 A Discord bot written using Node in TypeScript
 
 ```sh
-$ git clone https://github.com/AlanMorel/oska
+git clone https://github.com/AlanMorel/oska
 ```
 
 ```sh
-$ cd oska
+cd oska
 ```
 
 ```sh
-$ npm install yarn -g
+npm install yarn -g
 ```
 
 ```sh
-$ yarn install
+yarn install
 ```
 
 Create a `.env` file
 
-```
+```sh
 TOKEN=
 PREFIX=
 ```

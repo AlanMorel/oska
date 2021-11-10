@@ -6,6 +6,8 @@ export const Ping: SlashCommand = {
     description: "Returns websocket ping",
     type: "CHAT_INPUT",
     run: async (client: Client, interaction: BaseCommandInteraction, args: string[]) => {
-        await interaction.followUp({ content: `${client.ws.ping}ms!` });
+        await interaction.followUp({
+            content: `${client.ws.ping}ms!`
+        });
     }
 };

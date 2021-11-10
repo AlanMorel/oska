@@ -10,7 +10,7 @@ export default (client: Client): void => {
         }
 
         Logger.log(`${message.author.username}#${message.author.discriminator} sent a message`);
-        Logger.logMessageTimestamp(BigInt(message.author.id), message.createdTimestamp);
+        Logger.logMessage(message.author.id, message.createdTimestamp);
 
         if (!message.content.startsWith(Config.prefix)) {
             return;

@@ -87,6 +87,6 @@ const getLastMessageTimestamp = async (id: string): Promise<string> => {
 const getDaysAgo = (timestamp: number): string => {
     const date = new Date(timestamp);
     const deltaDays = (date.getTime() - Date.now()) / (1000 * 60 * 60 * 24);
-    const formatter = new Intl.RelativeTimeFormat("en-US");
+    const formatter = new Intl.RelativeTimeFormat(Config.locale);
     return formatter.format(Math.round(deltaDays), "days");
 };

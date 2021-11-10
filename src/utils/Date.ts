@@ -1,3 +1,5 @@
+import Config from "@/Config";
+
 const timestampOptions = {
     month: "short",
     day: "2-digit",
@@ -8,5 +10,5 @@ const timestampOptions = {
 } as Intl.DateTimeFormatOptions;
 
 export function getTimestamp(date: Date = new Date()): string {
-    return date.toLocaleDateString("en-US", timestampOptions);
+    return date.toLocaleDateString(Config.locale, timestampOptions);
 }

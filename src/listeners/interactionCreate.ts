@@ -12,15 +12,13 @@ export default (client: Client): void => {
 };
 
 const handleSlashCommands = async (client: Client, interaction: BaseCommandInteraction): Promise<void> => {
-    await interaction.deferReply({
-        ephemeral: false
-    });
-
     const slashCommand = SlashCommands.find(c => c.name === interaction.commandName);
     if (!slashCommand) {
         interaction.followUp({ content: "An error has occured" });
         return;
     }
+
+    await interaction.deferReply(slashCommand.deferReplyOptions);
 
     const args: string[] = [];
 
@@ -28,14 +26,12 @@ const handleSlashCommands = async (client: Client, interaction: BaseCommandInter
 };
 
 const handleContextMenu = async (client: Client, interaction: BaseCommandInteraction): Promise<void> => {
-    await interaction.deferReply({
-        ephemeral: false
-    });
-
     const slashCommand = SlashCommands.find(c => c.name === interaction.commandName);
     if (!slashCommand) {
         return;
     }
+
+    await interaction.deferReply(slashCommand.deferReplyOptions);
 
     const args: string[] = [];
 

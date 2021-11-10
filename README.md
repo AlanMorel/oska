@@ -2,6 +2,8 @@
 
 A Discord bot written using Node in TypeScript
 
+Install node, npm, clone this repository, then install the dependencies
+
 ```sh
 git clone https://github.com/AlanMorel/oska
 ```
@@ -22,5 +24,18 @@ Create a `.env` file
 
 ```sh
 TOKEN=
-PREFIX=
+PREFIX=!
+LOCALE=en-US
+```
+
+Create a folder called `logs` at the root
+
+```sh
+mkdir logs
+```
+
+Run the bot
+
+```sh
+yarn start
 ```

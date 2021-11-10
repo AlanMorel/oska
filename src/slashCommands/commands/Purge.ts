@@ -12,6 +12,9 @@ export const Purge: SlashCommand = {
     name: "purge",
     description: "Returns list of people to purge",
     type: "CHAT_INPUT",
+    deferReplyOptions: {
+        ephemeral: true
+    },
     run: async (client: Client, interaction: BaseCommandInteraction, args: string[]) => {
         const guild = interaction.guild;
 
@@ -70,8 +73,11 @@ export const Purge: SlashCommand = {
         });
 
         await interaction.followUp({
+            ephemeral: true,
             content: prefix + results.join(", ")
         });
+
+        //client.api.interactions(this.id, this.token).callback.post( {data: { type: 4, data: {flags:64, content: message}}  }))
     }
 };
 

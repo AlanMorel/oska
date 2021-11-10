@@ -1,15 +1,7 @@
 import Config from "@/Config";
+import { getTimestamp } from "@/utils/Date";
 import chalk from "chalk";
 import { promises as fs } from "fs";
-
-const timestampOptions = {
-    month: "short",
-    day: "2-digit",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit"
-} as Intl.DateTimeFormatOptions;
 
 export class Logger {
     public static logMessageTimestamp(authorId: BigInt, createdTimestamp: number): void {
@@ -21,17 +13,17 @@ export class Logger {
 
         content = `${chalkConfig("[" + prefix.toUpperCase() + "]")} ${content}`;
 
-        const timestamp = this.getTimestamp();
+        const timestamp = getTimestamp();
         content = `${chalk.gray(timestamp)} ${content}`;
 
         console.log(`${content}`);
     }
 
-    private static getTimestamp(): string {
-        return new Date().toLocaleDateString("en-US", timestampOptions);
+    public static error(error: string, color: chalk.Chalk = chalk.red): void {
+        this.log(error, color, "Error");
     }
 
     private static writeToFile(filename: string, message: string): void {
-        fs.appendFile(Config.root + "/logs/" + filename + ".log", message);
+        fs.writeFile(Config.root + "/logs/" + filename + ".log", message);
     }
 }

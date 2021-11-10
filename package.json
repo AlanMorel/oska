@@ -4,19 +4,15 @@
     "author": "Alan Morel",
     "license": "MIT",
     "description": "A Discord bot written using Node in TypeScript",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/AlanMorel/oska.git"
+    },
     "scripts": {
         "build": "tsc --project ./tsconfig.json && tsc-alias -p ./tsconfig.json",
         "start": "nodemon --config ./nodemon.config.json ./src/Bot.ts --watch src",
         "static": "yarn run build && node ./dist/Bot.js"
     },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/AlanMorel/oska.git"
-    },
-    "bugs": {
-        "url": "https://github.com/AlanMorel/oska/issues"
-    },
-    "homepage": "https://github.com/AlanMorel/oska#readme",
     "dependencies": {
         "discord.js": "^13.3.1",
         "dotenv": "^10.0.0"

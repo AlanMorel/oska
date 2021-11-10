@@ -65,19 +65,27 @@ export const Purge: SlashCommand = {
             Logger.log(username + " should not be purged");
         }
 
+        if (!purge.length) {
+            await interaction.followUp({
+                ephemeral: true,
+                content: "Nobody needs to be purged!"
+            });
+            return;
+        }
+
         const prefix = purge.length + " people should be purged: ";
 
-        const results = purge.map(member => {
+        let results = purge.map(member => {
             const user = member.user;
             return user.username + "#" + user.discriminator;
         });
+
+        results = results.sort();
 
         await interaction.followUp({
             ephemeral: true,
             content: prefix + results.join(", ")
         });
-
-        //client.api.interactions(this.id, this.token).callback.post( {data: { type: 4, data: {flags:64, content: message}}  }))
     }
 };
 

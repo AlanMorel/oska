@@ -1,4 +1,5 @@
 import { SlashCommands } from "@/slashCommands/SlashCommands";
+import { Logger } from "@/utils/Logger";
 import { Client } from "discord.js";
 
 export default (client: Client): void => {
@@ -7,6 +8,6 @@ export default (client: Client): void => {
             return;
         }
         await client.application.commands.set(SlashCommands);
-        console.log(`${client.user.tag} is up and ready to go!`);
+        Logger.log(`${client.user.tag} is up and ready to go!`);
     });
 };

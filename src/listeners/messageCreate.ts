@@ -1,10 +1,18 @@
 import Config from "@/Config";
 import { MessageCommands } from "@/messageCommands/MessageCommands";
+import { Logger } from "@/utils/Logger";
 import { Client, Message } from "discord.js";
 
 export default (client: Client): void => {
     client.on("messageCreate", async (message: Message) => {
-        if (message.author.bot || !message.guild || !message.content.startsWith(Config.prefix)) {
+        if (message.author.bot || !message.guild) {
+            return;
+        }
+
+        Logger.log(`${message.author.username}#${message.author.discriminator} sent a message`);
+        Logger.logMessageTimestamp(BigInt(message.author.id), message.createdTimestamp);
+
+        if (!message.content.startsWith(Config.prefix)) {
             return;
         }
 

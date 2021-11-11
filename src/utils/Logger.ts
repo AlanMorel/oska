@@ -9,14 +9,10 @@ export class Logger {
     }
 
     public static log(message: string, chalkConfig: chalk.Chalk = chalk.blue, prefix: string = "log"): void {
-        let content = `${chalkConfig(message)}`;
-
-        content = `${chalkConfig("[" + prefix.toUpperCase() + "]")} ${content}`;
-
         const timestamp = getTimestamp();
-        content = `${chalk.gray(timestamp)} ${content}`;
+        const content = chalkConfig(`[${prefix.toUpperCase()}] ${message}`);
 
-        console.log(`${content}`);
+        console.log(`${chalk.gray(timestamp)} ${content}`);
     }
 
     public static error(error: string, color: chalk.Chalk = chalk.red): void {

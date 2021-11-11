@@ -1,7 +1,7 @@
 import Config from "@/Config";
 import { SlashCommand } from "@/slashCommands/SlashCommand";
 import { Logger } from "@/utils/Logger";
-import { BaseCommandInteraction, Client, GuildMember } from "discord.js";
+import { BaseCommandInteraction, Client, GuildMember, User } from "discord.js";
 import { promises as fs } from "fs";
 
 const DAY = 24 * 60 * 60 * 1000;
@@ -23,8 +23,7 @@ export const Purge: SlashCommand = {
         }
 
         const members = await guild.members.fetch();
-
-        const purge: GuildMember[] = await getPurgeList(members.values());
+        const purge = await getPurgeList(members.values());
 
         if (!purge.length) {
             await interaction.followUp({
@@ -34,24 +33,18 @@ export const Purge: SlashCommand = {
             return;
         }
 
-        const prefix = purge.length + " people should be purged: ";
-
-        let results = purge.map(member => {
-            const user = member.user;
-            return user.username + "#" + user.discriminator;
-        });
-
-        results = results.sort();
+        const results = purge.map(user => `${user.username}#${user.discriminator}`).sort();
+        const content = `${purge.length} people should be purged: ${results.join(", ")}`;
 
         await interaction.followUp({
             ephemeral: true,
-            content: prefix + results.join(", ")
+            content
         });
     }
 };
 
-const getPurgeList = async (members: IterableIterator<GuildMember>): Promise<GuildMember[]> => {
-    const purge: GuildMember[] = [];
+const getPurgeList = async (members: IterableIterator<GuildMember>): Promise<User[]> => {
+    const purge: User[] = [];
 
     for (const member of members) {
         const user = member.user;
@@ -60,7 +53,6 @@ const getPurgeList = async (members: IterableIterator<GuildMember>): Promise<Gui
             continue;
         }
 
-        const username = user.username + "#" + user.discriminator;
         const roles = member.roles.cache.filter(role => role.name !== "@everyone").map(role => role.name);
 
         if (roles.length > 0) {
@@ -70,18 +62,15 @@ const getPurgeList = async (members: IterableIterator<GuildMember>): Promise<Gui
         const rawTimestamp = await getLastMessageTimestamp(user.id);
 
         if (!rawTimestamp) {
-            purge.push(member);
+            purge.push(user);
             continue;
         }
 
         const timestamp = parseInt(rawTimestamp);
 
         if (Date.now() - timestamp > PURGE_DURATION) {
-            purge.push(member);
-            continue;
+            purge.push(user);
         }
-
-        Logger.log(username + " should not be purged");
     }
 
     return purge;

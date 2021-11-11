@@ -20,6 +20,6 @@ export class Logger {
     }
 
     private static writeToFile(filename: string, message: string): void {
-        fs.writeFile(Config.root + "/logs/" + filename + ".log", message);
+        fs.writeFile(`${Config.root}/logs/${filename}.log`, message);
     }
 }

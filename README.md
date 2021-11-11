@@ -23,6 +23,7 @@ yarn install
 Create a `.env` file
 
 ```sh
+VERSION=0
 TOKEN=
 PREFIX=!
 LOCALE=en-US

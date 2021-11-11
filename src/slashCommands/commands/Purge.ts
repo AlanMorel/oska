@@ -5,7 +5,7 @@ import { BaseCommandInteraction, Client, GuildMember, User } from "discord.js";
 import { promises as fs } from "fs";
 
 const DAY = 24 * 60 * 60 * 1000;
-const PURGE_DURATION = 7 * DAY;
+const PURGE_IMMUNITY_DURATION = 7 * DAY;
 
 export const Purge: SlashCommand = {
     name: "purge",
@@ -17,8 +17,8 @@ export const Purge: SlashCommand = {
     run: async (client: Client, interaction: BaseCommandInteraction, args: string[]) => {
         const guild = interaction.guild;
 
-        if (!guild || !client) {
-            Logger.error("No valid guild or client found!");
+        if (!guild) {
+            Logger.error("No valid guild found!");
             return;
         }
 
@@ -33,7 +33,7 @@ export const Purge: SlashCommand = {
             return;
         }
 
-        const results = purge.map(user => `${user.username}#${user.discriminator}`).sort();
+        const results = purge.map(user => user.tag).sort();
         const content = `${purge.length} people should be purged: ${results.join(", ")}`;
 
         await interaction.followUp({
@@ -68,7 +68,7 @@ const getPurgeList = async (members: IterableIterator<GuildMember>): Promise<Use
 
         const timestamp = parseInt(rawTimestamp);
 
-        if (Date.now() - timestamp > PURGE_DURATION) {
+        if (Date.now() - timestamp > PURGE_IMMUNITY_DURATION) {
             purge.push(user);
         }
     }

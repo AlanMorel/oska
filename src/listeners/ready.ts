@@ -10,6 +10,6 @@ export default (client: Client): void => {
 
         await client.application.commands.set(SlashCommands);
 
-        Logger.log(`${client.user.tag} is up and ready to go!`);
+        Logger.log(`${client.user.username} is online`);
     });
 };

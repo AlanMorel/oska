@@ -26,8 +26,10 @@ module.exports = {
             }
         ],
         semi: 2,
+        quotes: 2,
         "no-trailing-spaces": "error",
         "no-case-declarations": "off",
+        "prefer-template": "error",
         "eol-last": "error",
         "no-undef": 1,
         "no-prototype-builtins": 1,

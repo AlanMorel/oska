@@ -6,6 +6,6 @@ import {
 } from "discord.js";
 
 export interface SlashCommand extends ChatInputApplicationCommandData {
-    run: (client: Client, interaction: BaseCommandInteraction, args: string[]) => void;
+    run: (client: Client, interaction: BaseCommandInteraction) => void;
     deferReplyOptions?: InteractionDeferReplyOptions;
 }

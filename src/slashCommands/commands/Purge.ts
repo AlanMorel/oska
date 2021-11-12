@@ -14,7 +14,7 @@ export const Purge: SlashCommand = {
     deferReplyOptions: {
         ephemeral: true
     },
-    run: async (client: Client, interaction: BaseCommandInteraction, args: string[]) => {
+    run: async (client: Client, interaction: BaseCommandInteraction) => {
         const guild = interaction.guild;
 
         if (!guild) {

@@ -4,7 +4,7 @@ import { Client, Message } from "discord.js";
 export const Ping: MessageCommand = {
     name: "ping",
     aliases: ["p"],
-    run: async (client: Client, message: Message, args: string[]) => {
+    run: async (client: Client, message: Message) => {
         message.channel.send(`${client.ws.ping}ms ping`);
     }
 };

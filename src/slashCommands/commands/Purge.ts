@@ -59,7 +59,7 @@ const getPurgeList = async (members: IterableIterator<GuildMember>): Promise<Use
             continue;
         }
 
-        const rawTimestamp = await getLastMessageTimestamp(user.id);
+        const rawTimestamp = await getLastMessageTimestamp(member.guild.id, user.id);
 
         if (!rawTimestamp) {
             purge.push(user);
@@ -76,8 +76,8 @@ const getPurgeList = async (members: IterableIterator<GuildMember>): Promise<Use
     return purge;
 };
 
-const getLastMessageTimestamp = async (id: string): Promise<string> => {
-    const path = `${Config.root}/logs/${id}.log`;
+const getLastMessageTimestamp = async (guildId: string, authorId: string): Promise<string> => {
+    const path = `${Config.root}/logs/timestamps/${guildId}/${authorId}.log`;
     try {
         return await fs.readFile(path, "utf8");
     } catch (error) {

@@ -33,7 +33,7 @@ export const Purge: SlashCommand = {
             return;
         }
 
-        const results = purge.map(user => user.tag).sort();
+        const results = purge.map(user => user.username).sort();
         const content = `${purge.length} people should be purged: ${results.join(", ")}`;
 
         await interaction.followUp({

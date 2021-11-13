@@ -4,8 +4,8 @@ import chalk from "chalk";
 import { promises as fs } from "fs";
 
 export class Logger {
-    public static logMessage(authorId: string, createdTimestamp: number): void {
-        this.writeToFile(authorId, createdTimestamp.toString());
+    public static logMessage(guildId: string, authorId: string, createdTimestamp: number): void {
+        this.writeToFile(`timestamps/${guildId}/${authorId}`, createdTimestamp.toString());
     }
 
     public static log(message: string, chalkConfig: chalk.Chalk = chalk.blue, prefix: string = "log"): void {

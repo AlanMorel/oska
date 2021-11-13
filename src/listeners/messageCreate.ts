@@ -9,7 +9,7 @@ export default (client: Client): void => {
             return;
         }
 
-        Logger.logMessage(message.author.id, message.createdTimestamp);
+        Logger.logMessage(message.guild.id, message.author.id, message.createdTimestamp);
 
         if (!message.content.startsWith(Config.prefix)) {
             return;

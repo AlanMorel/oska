@@ -34,10 +34,10 @@ export const Purge: SlashCommand = {
         }
 
         const results = purge
-            .map(user => user.username.trim())
+            .map(user => user.username)
             .sort((a, b) => a.localeCompare(b, undefined, { sensitivity: "base" }));
 
-        const content = `**${purge.length}** people should be purged\n${results.join(", ")}`;
+        const content = `**${purge.length}** people should be purged\n\n${results.join(", ")}`;
 
         await interaction.followUp({
             ephemeral: true,

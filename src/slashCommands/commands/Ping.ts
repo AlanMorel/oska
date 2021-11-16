@@ -16,7 +16,8 @@ export const Ping: SlashCommand = {
 
         await interaction.followUp({
             content: `${client.ws.ping}ms!`,
-            embeds: [pembed]
+            embeds: [pembed],
+            ephemeral: true
         });
     }
 };

@@ -37,7 +37,7 @@ export const initializeCaches = async (): Promise<void> => {
         const cache = JSON.parse(data) as Cache;
         const guildID = guild.split(".")[0];
         caches[guildID] = cache;
-        Logger.log(`Loaded ${cache.users.length} users from guild ${guildID}`);
+        Logger.log(`Loaded ${Object.keys(cache.users).length} users from guild ${guildID}`);
     }
 
     setInterval(saveCaches, Config.cacheInterval * 60 * 1000);

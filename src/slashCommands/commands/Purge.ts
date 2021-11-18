@@ -1,8 +1,7 @@
-import Config from "@/Config";
+import { caches } from "@/Cache";
 import { SlashCommand } from "@/slashCommands/SlashCommand";
 import { Logger } from "@/utils/Logger";
 import { BaseCommandInteraction, Client, GuildMember, User } from "discord.js";
-import { promises as fs } from "fs";
 
 const DAY = 24 * 60 * 60 * 1000;
 const PURGE_IMMUNITY_DURATION = 7 * DAY;
@@ -62,28 +61,17 @@ const getPurgeList = async (members: IterableIterator<GuildMember>): Promise<Use
             continue;
         }
 
-        const rawTimestamp = await getLastMessageTimestamp(member.guild.id, user.id);
-
-        if (!rawTimestamp) {
+        const cache = caches[member.guild.id].users[user.id];
+        if (!cache) {
             purge.push(user);
             continue;
         }
 
-        const timestamp = parseInt(rawTimestamp);
-
+        const timestamp = parseInt(cache);
         if (Date.now() - timestamp > PURGE_IMMUNITY_DURATION) {
             purge.push(user);
         }
     }
 
     return purge;
-};
-
-const getLastMessageTimestamp = async (guildId: string, authorId: string): Promise<string> => {
-    const path = `${Config.root}/logs/timestamps/${guildId}/${authorId}.log`;
-    try {
-        return await fs.readFile(path, "utf8");
-    } catch (error) {
-        return "";
-    }
 };

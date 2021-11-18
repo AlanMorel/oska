@@ -10,9 +10,10 @@ export class Logger {
 
     public static log(message: string, chalkConfig: chalk.Chalk = chalk.blue, prefix: string = "log"): void {
         const timestamp = getTimestamp();
-        const content = chalkConfig(`[${prefix.toUpperCase()}] ${message}`);
+        const content = `[${prefix.toUpperCase()}] ${message}`;
 
-        console.log(`${chalk.gray(timestamp)} ${content}`);
+        console.log(`${chalk.gray(timestamp)} ${chalkConfig(content)}`);
+        this.writeToFile("log", `${timestamp} ${content}`);
     }
 
     public static error(error: string, color: chalk.Chalk = chalk.red): void {
@@ -20,6 +21,6 @@ export class Logger {
     }
 
     private static writeToFile(filename: string, message: string): void {
-        fs.writeFile(`${Config.root}/logs/${filename}.log`, message);
+        fs.appendFile(`${Config.root}/logs/${filename}.log`, `${message}\r\n`);
     }
 }

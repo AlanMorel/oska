@@ -1,15 +1,17 @@
+import { Guild } from "discord.js";
 import { promises as fs } from "fs";
 import Config from "./Config";
 import { getTimestamp } from "./utils/Date";
 import { Logger } from "./utils/Logger";
 
-export const caches: Caches = {};
+const caches: Caches = {};
 
 interface Caches {
     [id: string]: Cache;
 }
 
 interface Cache {
+    name: string;
     timestamp: string;
     users: Users;
 }
@@ -19,35 +21,51 @@ interface Users {
 }
 
 const saveCaches = async (): Promise<void> => {
-    for (const server in caches) {
-        caches[server].timestamp = getTimestamp();
-        const data = JSON.stringify(caches[server], null, 4);
-        await fs.writeFile(`${Config.root}/logs/caches/${server}.json`, data);
+    for (const guildId in caches) {
+        caches[guildId].timestamp = getTimestamp();
+        const data = JSON.stringify(caches[guildId], null, 4);
+        await fs.writeFile(`${Config.root}/logs/caches/${guildId}.json`, data);
     }
     const timestamp = getTimestamp();
     Logger.log(`Caches saved successfully at ${timestamp}`);
 };
 
 export const initializeCaches = async (): Promise<void> => {
-    const servers = await fs.readdir(`${Config.root}/logs/caches`);
-    for (const server of servers) {
-        const id = server.split(".")[0];
-        const data = await fs.readFile(`${Config.root}/logs/caches/${server}`, "utf8");
-        const json = JSON.parse(data);
-        const cache: Cache = {
-            timestamp: json.timestamp,
-            users: json.users
-        };
-        caches[id] = cache;
-        Logger.log(`Loaded ${Object.keys(json.users).length} users from server ${id}`);
+    const guilds = await fs.readdir(`${Config.root}/logs/caches`);
+    for (const guild of guilds) {
+        const data = await fs.readFile(`${Config.root}/logs/caches/${guild}`, "utf8");
+        const cache = JSON.parse(data) as Cache;
+        const guildID = guild.split(".")[0];
+        caches[guildID] = cache;
+        Logger.log(`Loaded ${cache.users.length} users from guild ${guildID}`);
     }
 
     setInterval(saveCaches, Config.cacheInterval * 60 * 1000);
-
     Logger.log(`Saving caches every ${Config.cacheInterval} mins`);
 };
 
-export const updateTimestamp = (guildId: string, userId: string): void => {
-    Logger.log(`Updating user ${userId} in server ${guildId}`);
-    caches[guildId].users[userId] = Math.round(Date.now()).toString();
+export const updateTimestamp = (guild: Guild, userId: string): void => {
+    Logger.log(`Updating user ${userId} in guild ${guild.id}`);
+
+    const cache = caches[guild.id] || createNewCache(guild);
+    cache.users[userId] = Math.round(Date.now()).toString();
+};
+
+export const getUserCache = (guild: Guild, userId: string): string | null => {
+    const cache = caches[guild.id] || createNewCache(guild);
+    return cache.users[userId];
+};
+
+const createNewCache = (guild: Guild): Cache => {
+    Logger.error(`Creating brand new guild cache for guild ${guild.name}`);
+
+    const cache: Cache = {
+        name: guild.name,
+        timestamp: getTimestamp(),
+        users: {}
+    };
+
+    caches[guild.id] = cache;
+
+    return cache;
 };

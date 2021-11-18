@@ -28,6 +28,7 @@ TOKEN=
 PREFIX=!
 LOCALE=en-US
 CACHE_INTERVAL=60
+TZ=America/New_York
 ```
 
 Create a folder called `logs` at the root

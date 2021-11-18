@@ -1,4 +1,4 @@
-import { caches } from "@/Cache";
+import { getUserCache } from "@/Cache";
 import { SlashCommand } from "@/slashCommands/SlashCommand";
 import { Logger } from "@/utils/Logger";
 import { BaseCommandInteraction, Client, GuildMember, User } from "discord.js";
@@ -50,18 +50,16 @@ const getPurgeList = async (members: IterableIterator<GuildMember>): Promise<Use
 
     for (const member of members) {
         const user = member.user;
-
         if (user.bot) {
             continue;
         }
 
         const roles = member.roles.cache.filter(role => role.name !== "@everyone").map(role => role.name);
-
         if (roles.length > 0) {
             continue;
         }
 
-        const cache = caches[member.guild.id].users[user.id];
+        const cache = getUserCache(member.guild, user.id);
         if (!cache) {
             purge.push(user);
             continue;

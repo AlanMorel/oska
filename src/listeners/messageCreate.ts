@@ -9,7 +9,7 @@ export default (client: Client): void => {
             return;
         }
 
-        updateTimestamp(message.guild.id, message.author.id);
+        updateTimestamp(message.guild, message.author.id);
 
         if (!message.content.startsWith(Config.prefix)) {
             return;

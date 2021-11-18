@@ -1,4 +1,4 @@
-import { updateTimestamp } from "@/Cache";
+import { updateUserTimestamp } from "@/Cache";
 import Config from "@/Config";
 import { MessageCommands } from "@/messageCommands/MessageCommands";
 import { Client, Message } from "discord.js";
@@ -9,7 +9,7 @@ export default (client: Client): void => {
             return;
         }
 
-        updateTimestamp(message.guild, message.author.id);
+        updateUserTimestamp(message.guild, message.author.id);
 
         if (!message.content.startsWith(Config.prefix)) {
             return;

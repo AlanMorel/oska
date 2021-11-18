@@ -1,4 +1,4 @@
-import { getUserCache } from "@/Cache";
+import { getUserTimestamp } from "@/Cache";
 import { SlashCommand } from "@/slashCommands/SlashCommand";
 import { Logger } from "@/utils/Logger";
 import { BaseCommandInteraction, Client, GuildMember, User } from "discord.js";
@@ -59,13 +59,13 @@ const getPurgeList = async (members: IterableIterator<GuildMember>): Promise<Use
             continue;
         }
 
-        const cache = getUserCache(member.guild, user.id);
-        if (!cache) {
+        const rawTimestamp = getUserTimestamp(member.guild, user.id);
+        if (!rawTimestamp) {
             purge.push(user);
             continue;
         }
 
-        const timestamp = parseInt(cache);
+        const timestamp = parseInt(rawTimestamp);
         if (Date.now() - timestamp > PURGE_IMMUNITY_DURATION) {
             purge.push(user);
         }

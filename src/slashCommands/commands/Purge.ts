@@ -1,7 +1,8 @@
 import { getUserTimestamp } from "@/Cache";
 import { SlashCommand } from "@/slashCommands/SlashCommand";
+import { partition } from "@/utils/Array";
 import { Logger } from "@/utils/Logger";
-import { BaseCommandInteraction, Client, GuildMember, User } from "discord.js";
+import { BaseCommandInteraction, Client, GuildMember } from "discord.js";
 
 const DAY = 24 * 60 * 60 * 1000;
 const PURGE_IMMUNITY_DURATION = 7 * DAY;
@@ -32,11 +33,21 @@ export const Purge: SlashCommand = {
             return;
         }
 
-        const results = purge
-            .map(user => user.username)
+        const purgeList = purge
+            .map(member => member.user.username)
             .sort((a, b) => a.localeCompare(b, undefined, { sensitivity: "base" }));
 
-        const content = `**${purge.length}** people should be purged\n\n${results.join(", ")}`;
+        const [online, offline] = partition(purgeList, isOnline);
+
+        const content = [
+            `**${purge.length}** people should be purged`,
+            "",
+            "**Online**",
+            `${online.join(", ")}`,
+            "",
+            "**Offline**",
+            `${offline.join(", ")}`
+        ].join("\n");
 
         await interaction.followUp({
             ephemeral: true,
@@ -45,8 +56,12 @@ export const Purge: SlashCommand = {
     }
 };
 
-const getPurgeList = async (members: IterableIterator<GuildMember>): Promise<User[]> => {
-    const purge: User[] = [];
+const isOnline = (member: GuildMember): boolean => {
+    return member.presence ? member.presence.status === "offline" : true;
+};
+
+const getPurgeList = async (members: IterableIterator<GuildMember>): Promise<GuildMember[]> => {
+    const purge: GuildMember[] = [];
 
     for (const member of members) {
         const user = member.user;
@@ -61,13 +76,13 @@ const getPurgeList = async (members: IterableIterator<GuildMember>): Promise<Use
 
         const rawTimestamp = getUserTimestamp(member.guild, user.id);
         if (!rawTimestamp) {
-            purge.push(user);
+            purge.push(member);
             continue;
         }
 
         const timestamp = parseInt(rawTimestamp);
         if (Date.now() - timestamp > PURGE_IMMUNITY_DURATION) {
-            purge.push(user);
+            purge.push(member);
         }
     }
 

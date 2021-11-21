@@ -33,11 +33,15 @@ export const Purge: SlashCommand = {
             return;
         }
 
-        const purgeList = purge
+        let [online, offline] = partition(purge, isOnline);
+
+        online = online
             .map(member => member.user.username)
             .sort((a, b) => a.localeCompare(b, undefined, { sensitivity: "base" }));
 
-        const [online, offline] = partition(purgeList, isOnline);
+        offline = offline
+            .map(member => member.user.username)
+            .sort((a, b) => a.localeCompare(b, undefined, { sensitivity: "base" }));
 
         const content = [
             `**${purge.length}** people should be purged`,

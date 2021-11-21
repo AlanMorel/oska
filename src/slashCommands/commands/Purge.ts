@@ -57,7 +57,7 @@ export const Purge: SlashCommand = {
 };
 
 const isOnline = (member: GuildMember): boolean => {
-    return member.presence ? member.presence.status !== "offline" : false;
+    return member.presence ? member.presence.status === "online" : false;
 };
 
 const getPurgeList = async (members: IterableIterator<GuildMember>): Promise<GuildMember[]> => {

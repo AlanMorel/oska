@@ -5,7 +5,7 @@ import { Client, Message } from "discord.js";
 
 export default (client: Client): void => {
     client.on("messageCreate", async (message: Message) => {
-        if (message.author.bot || !message.guild) {
+        if (message.author.bot || !message.guild || message.type === "GUILD_MEMBER_JOIN") {
             return;
         }
 

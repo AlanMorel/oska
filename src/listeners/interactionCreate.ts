@@ -1,3 +1,4 @@
+import { updateUserTimestamp } from "@/Cache";
 import { SlashCommands } from "@/slashCommands/SlashCommands";
 import { BaseCommandInteraction, Client, Interaction } from "discord.js";
 
@@ -14,6 +15,11 @@ const handleSlashCommand = async (client: Client, interaction: BaseCommandIntera
     if (!slashCommand) {
         interaction.followUp({ content: "An error has occured" });
         return;
+    }
+
+    const guild = interaction.guild;
+    if (guild) {
+        updateUserTimestamp(guild, interaction.user.id);
     }
 
     await interaction.deferReply(slashCommand.deferReplyOptions);

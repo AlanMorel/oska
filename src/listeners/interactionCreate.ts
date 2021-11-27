@@ -13,7 +13,7 @@ export default (client: Client): void => {
 const handleSlashCommand = async (client: Client, interaction: BaseCommandInteraction): Promise<void> => {
     const slashCommand = SlashCommands.find(c => c.name === interaction.commandName);
     if (!slashCommand) {
-        interaction.followUp({ content: "An error has occured" });
+        interaction.followUp({ content: "An error has occurred" });
         return;
     }
 

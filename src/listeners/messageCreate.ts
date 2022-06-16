@@ -5,6 +5,20 @@ import { Client, Message } from "discord.js";
 
 export default (client: Client): void => {
     client.on("messageCreate", async (message: Message) => {
+        if (message.channel.id === Config.crossPostChannelId) {
+            if (message.embeds.length > 0) {
+                // ignore new comments on crosspost
+                if (message.embeds[0].title?.includes("New comment on")) {
+                    return;
+                }
+
+                message
+                    .crosspost()
+                    .then(() => console.log("Crossposted message"))
+                    .catch(console.error);
+            }
+        }
+
         if (message.author.bot || !message.guild) {
             return;
         }

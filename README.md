@@ -29,6 +29,7 @@ PREFIX=!
 LOCALE=en-US
 CACHE_INTERVAL=60
 TZ=America/New_York
+CROSS_POST_CHANNEL_ID=
 ```
 
 Create a folder called `logs` at the root

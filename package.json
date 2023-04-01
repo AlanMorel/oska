@@ -14,13 +14,18 @@
         "static": "yarn run build && node ./dist/Bot.js"
     },
     "dependencies": {
+        "@types/node": "^18.15.11",
         "discord.js": "^14.8.0",
         "dotenv": "^16.0.3",
-        "picocolors": "^1.0.0"
+        "picocolors": "^1.0.0",
+        "ts-node": "^10.9.1",
+        "tsc-alias": "^1.8.5",
+        "tsconfig-paths": "^4.2.0",
+        "tslib": "^2.5.0",
+        "typescript": "^5.0.3"
     },
     "devDependencies": {
         "@babel/eslint-parser": "^7.21.3",
-        "@types/node": "^18.15.11",
         "@typescript-eslint/eslint-plugin": "^5.57.0",
         "@typescript-eslint/parser": "^5.57.0",
         "eslint": "^8.37.0",
@@ -28,10 +33,6 @@
         "eslint-plugin-prettier": "^4.2.1",
         "eslint-plugin-security": "^1.7.1",
         "nodemon": "^2.0.22",
-        "prettier": "^2.8.7",
-        "ts-node": "^10.9.1",
-        "tsc-alias": "^1.8.5",
-        "tsconfig-paths": "^4.2.0",
-        "typescript": "^5.0.3"
+        "prettier": "^2.8.7"
     }
 }

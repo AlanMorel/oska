@@ -1,5 +1,6 @@
 import Config from "@/Config";
 import { getTimestamp } from "@/utils/Date";
+import { pathExists } from "@/utils/PathExists";
 import { promises as fs } from "fs";
 import picocolors from "picocolors";
 import { Formatter } from "picocolors/types";
@@ -27,7 +28,7 @@ export class Logger {
         const directory = `${Config.root}/logs`;
         const path = `${directory}/${filename}.log`;
 
-        const exists = await fileExists(directory);
+        const exists = await pathExists(directory);
 
         if (!exists) {
             await fs.mkdir(directory, { recursive: true });
@@ -36,13 +37,3 @@ export class Logger {
         await fs.appendFile(path, `${message}\r\n`);
     }
 }
-
-const fileExists = async (path: string): Promise<boolean> => {
-    try {
-        await fs.stat(path);
-    } catch (error) {
-        return false;
-    }
-
-    return true;
-};

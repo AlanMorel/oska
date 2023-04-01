@@ -1,3 +1,4 @@
+import { pathExists } from "@/utils/PathExists";
 import { Guild } from "discord.js";
 import { promises as fs } from "fs";
 import Config from "./Config";
@@ -52,7 +53,7 @@ const createNewCache = (guild: Guild): Cache => {
 };
 
 export const initializeCaches = async (): Promise<void> => {
-    const exists = await fs.stat(`${Config.root}/logs/caches`);
+    const exists = await pathExists(`${Config.root}/logs/caches`);
 
     if (!exists) {
         Logger.log("Creating new cache directory");

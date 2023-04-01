@@ -39,7 +39,7 @@ const getCache = (guild: Guild): Cache => {
 };
 
 const createNewCache = (guild: Guild): Cache => {
-    Logger.error(`Creating brand new guild cache for guild ${guild.name}`);
+    Logger.log(`Creating brand new guild cache for guild ${guild.name}`);
 
     const cache: Cache = {
         name: guild.name,

@@ -2,7 +2,7 @@ import { getUserTimestamp } from "@/Cache";
 import { SlashCommand } from "@/slashCommands/SlashCommand";
 import { partition } from "@/utils/Array";
 import { Logger } from "@/utils/Logger";
-import { BaseCommandInteraction, Client, GuildMember } from "discord.js";
+import { ApplicationCommandType, Client, CommandInteraction, GuildMember } from "discord.js";
 
 const DAY = 24 * 60 * 60 * 1000;
 const PURGE_IMMUNITY_DURATION = 10 * DAY;
@@ -10,11 +10,11 @@ const PURGE_IMMUNITY_DURATION = 10 * DAY;
 export const Purge: SlashCommand = {
     name: "purge",
     description: "Returns list of people to purge",
-    type: "CHAT_INPUT",
+    type: ApplicationCommandType.ChatInput,
     deferReplyOptions: {
         ephemeral: true
     },
-    run: async (client: Client, interaction: BaseCommandInteraction) => {
+    run: async (client: Client, interaction: CommandInteraction) => {
         const guild = interaction.guild;
 
         if (!guild) {

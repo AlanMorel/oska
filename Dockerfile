@@ -1,14 +1,18 @@
 FROM node:alpine as base
 
+RUN apk add --update --no-cache openssl1.1-compat
+
+RUN npm install -g pnpm
+
 WORKDIR /app
 
-COPY package.json yarn.lock ./
+COPY package.json pnpm-lock.yaml ./
 
-RUN npx browserslist@latest --update-db && rm -rf node_modules && yarn install --frozen-lockfile && yarn cache clean --force
+RUN pnpm install --frozen-lockfile --prod
 
 COPY . .
 
-RUN yarn build
+RUN pnpm build
 
 CMD ["node", "./dist/Bot.js"]
 

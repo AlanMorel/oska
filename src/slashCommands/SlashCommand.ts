@@ -1,11 +1,6 @@
-import {
-    BaseCommandInteraction,
-    ChatInputApplicationCommandData,
-    Client,
-    InteractionDeferReplyOptions
-} from "discord.js";
+import { ChatInputApplicationCommandData, Client, CommandInteraction, InteractionDeferReplyOptions } from "discord.js";
 
 export interface SlashCommand extends ChatInputApplicationCommandData {
-    run: (client: Client, interaction: BaseCommandInteraction) => void;
+    run: (client: Client, interaction: CommandInteraction) => void;
     deferReplyOptions?: InteractionDeferReplyOptions;
 }

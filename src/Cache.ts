@@ -52,6 +52,13 @@ const createNewCache = (guild: Guild): Cache => {
 };
 
 export const initializeCaches = async (): Promise<void> => {
+    const exists = await fs.stat(`${Config.root}/logs/caches`);
+
+    if (!exists) {
+        Logger.log("Creating new cache directory");
+        await fs.mkdir(`${Config.root}/logs/caches`, { recursive: true });
+    }
+
     const guilds = await fs.readdir(`${Config.root}/logs/caches`);
 
     for (const guild of guilds) {

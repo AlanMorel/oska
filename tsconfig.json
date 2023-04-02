@@ -14,36 +14,18 @@
         "resolveJsonModule": true,
         "forceConsistentCasingInFileNames": true,
         "removeComments": true,
-        "typeRoots": [
-            "node_modules/@types"
-        ],
+        "typeRoots": ["node_modules/@types"],
         "sourceMap": false,
         "baseUrl": "./",
         "paths": {
-            "@/*": [
-                "./src/*"
-            ]
+            "@/*": ["./src/*"]
         },
-        "lib": [
-            "esnext",
-            "dom",
-            "dom.iterable",
-            "scripthost"
-        ]
+        "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
     },
-    "files": [
-        "src/Bot.ts"
-    ],
-    "include": [
-        "./**/*.ts"
-    ],
-    "exclude": [
-        "node_modules",
-        "dist"
-    ],
+    "files": ["src/Bot.ts"],
+    "include": ["./**/*.ts"],
+    "exclude": ["node_modules", "dist"],
     "ts-node": {
-        "require": [
-            "tsconfig-paths/register"
-        ]
+        "require": ["tsconfig-paths/register"]
     }
 }

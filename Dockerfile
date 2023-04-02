@@ -12,8 +12,6 @@ RUN pnpm install --frozen-lockfile --prod
 
 COPY . .
 
-RUN pnpm build
-
-CMD ["node", "./dist/Bot.js"]
+CMD ["sh", "-c", "pnpm cross-env NODE_ENV=production node --loader ts-paths-esm-loader --experimental-specifier-resolution=node ./src/Bot.ts"]
 
 FROM base as production

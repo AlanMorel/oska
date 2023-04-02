@@ -11,11 +11,12 @@
     "scripts": {
         "build": "tsc --project ./tsconfig.json && tsc-alias -p ./tsconfig.json",
         "start": "nodemon --config ./nodemon.config.json ./src/Bot.ts --watch src",
-        "static": "yarn run build && node ./dist/Bot.js"
+        "static": "pnpm run build && node ./dist/Bot.js",
+        "ts:check": "tsc --noEmit"
     },
     "dependencies": {
         "@types/node": "^18.15.11",
-        "discord.js": "^14.8.0",
+        "discord.js": "^14.9.0",
         "dotenv": "^16.0.3",
         "picocolors": "^1.0.0",
         "ts-node": "^10.9.1",
@@ -26,12 +27,15 @@
     },
     "devDependencies": {
         "@babel/eslint-parser": "^7.21.3",
+        "@commitlint/cli": "^17.5.1",
+        "@commitlint/config-conventional": "^17.4.4",
         "@typescript-eslint/eslint-plugin": "^5.57.0",
         "@typescript-eslint/parser": "^5.57.0",
         "eslint": "^8.37.0",
         "eslint-config-prettier": "^8.8.0",
         "eslint-plugin-prettier": "^4.2.1",
         "eslint-plugin-security": "^1.7.1",
+        "husky": "^8.0.3",
         "nodemon": "^2.0.22",
         "prettier": "^2.8.7"
     }

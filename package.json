@@ -4,6 +4,7 @@
     "author": "Alan Morel",
     "license": "MIT",
     "description": "A Discord bot written using Node in TypeScript",
+    "type": "module",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/AlanMorel/oska.git"

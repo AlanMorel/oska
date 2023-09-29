@@ -5,7 +5,7 @@ import { Logger } from "@/utils/Logger";
 import { ApplicationCommandType, Client, CommandInteraction, GuildMember } from "discord.js";
 
 const DAY = 24 * 60 * 60 * 1000;
-const PURGE_IMMUNITY_DURATION = 10 * DAY;
+const PURGE_IMMUNITY_DURATION = 30 * DAY;
 
 export const Purge: SlashCommand = {
     name: "purge",

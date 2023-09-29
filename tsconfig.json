@@ -2,7 +2,7 @@
     "compilerOptions": {
         "target": "ESNext",
         "module": "ESNext",
-        "rootDir": "./src/",
+        "rootDir": "./",
         "outDir": "./dist/",
         "strict": true,
         "moduleResolution": "node",
@@ -22,10 +22,11 @@
         },
         "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
     },
-    "files": ["src/Bot.ts"],
     "include": ["./**/*.ts"],
     "exclude": ["node_modules", "dist"],
     "ts-node": {
-        "require": ["tsconfig-paths/register"]
+        "esm": true,
+        "experimentalSpecifierResolution": "node",
+        "transpileOnly": true
     }
 }

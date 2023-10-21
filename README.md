@@ -2,7 +2,7 @@
 
 A Discord bot written using Node in TypeScript
 
-Install node, npm, clone this repository, then install the dependencies
+Install node, pnpm, clone this repository, then install the dependencies
 
 ```sh
 git clone https://github.com/AlanMorel/oska
@@ -13,11 +13,11 @@ cd oska
 ```
 
 ```sh
-npm install yarn -g
+npm install pnpm -g
 ```
 
 ```sh
-yarn install
+pnpm install
 ```
 
 Create a `.env` file

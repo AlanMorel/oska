@@ -1,9 +1,9 @@
+import Config from "@/Config";
+import { getTimestamp } from "@/utils/Date";
+import { Logger } from "@/utils/Logger";
 import { pathExists } from "@/utils/PathExists";
 import { Guild } from "discord.js";
 import { promises as fs } from "fs";
-import Config from "./Config";
-import { getTimestamp } from "./utils/Date";
-import { Logger } from "./utils/Logger";
 
 const caches: Caches = {};
 

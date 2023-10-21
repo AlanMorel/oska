@@ -1,13 +1,23 @@
-.DS_Store
-node_modules
-dist
+# dependencies
+/node_modules
 
 # env files
-.env*
+*.env*
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# editor
+.vscode
 
 # log files
-*.log
 /logs
 
-# editor directories and files
-.vscode
+# next.js
+/.next
+/out
+/build
+
+# app-specific
+/dist

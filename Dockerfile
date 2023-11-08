@@ -1,17 +1,22 @@
 FROM node:20.1.0-alpine AS base
 
-RUN apk add --update --no-cache openssl1.1-compat
-
-RUN npm install -g pnpm
-
 WORKDIR /app
+
+ENV NODE_ENV production
+
+RUN npm install -g pnpm@8.9.0
+
+FROM base AS deps
 
 COPY package.json pnpm-lock.yaml ./
 
 RUN pnpm install --frozen-lockfile --prod
 
-COPY . .
+FROM base AS app
 
-ENV NODE_ENV production
+COPY . .
+COPY --from=deps /app/node_modules ./node_modules
+
+RUN pnpm ts:check
 
 CMD ["pnpm", "start"]
